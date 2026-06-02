@@ -1,0 +1,42 @@
+﻿<Window x:Class="ShoesShop.Windows.AddEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShoesShop.Windows"
+        mc:Ignorable="d"
+        Title="AddEditWindow" Height="550" Width="400">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Название товара:"/>
+            <ComboBox Name="ComboName" DisplayMemberPath="NaimenovanieTovara" SelectedValuePath="IDNameTovar" 
+                      SelectedValue="{Binding Name}"/>
+
+            <TextBlock Text="Производитель:" Margin="0,10,0,0"/>
+            <ComboBox Name="ComboManuf" DisplayMemberPath="NameProizvoditel" SelectedValuePath="IDProizvoditel" 
+                      SelectedValue="{Binding Proizvoditel}"/>
+
+            <TextBlock Text="Цена:" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding Chena}"/>
+
+            <TextBlock Text="Скидка (%):" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding DeistvuichaiaSkidka}"/>
+
+            <TextBlock Text="Кол-во на складе:" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding KolVoNaSklade}"/>
+
+            <TextBlock Text="Описание:" Margin="0,10,0,0"/>
+            <TextBox Text="{Binding OpisanieTovara}" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+            <TextBlock Text="Фото:" Margin="0,10,0,0"/>
+            <ComboBox Name="ComboPhoto" SelectedValue="{Binding Foto}" 
+          SelectionChanged="ComboPhoto_SelectionChanged" Margin="0,5"/>
+            <Image Source="{Binding PhotoPath}" Width="150" Height="100" Stretch="Uniform"/>
+
+            <UniformGrid Columns="2" Margin="0,20,0,0">
+                <Button Content="Сохранить" Click="BtnSave_Click" Height="30" Margin="5"/>
+                <Button Content="Отмена" IsCancel="True" Height="30" Margin="5"/>
+            </UniformGrid>
+        </StackPanel>
+    </Grid>
+</Window>

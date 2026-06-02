@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62bc5b03377a45788dd41576a13ca462" Name="Diagram1">
+        <EntityTypeShape EntityType="ObyvModel.Kategor" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.NameTovar" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.Postavchik" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.Proizvoditel" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.PunctVidachi" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.Role" Width="1.5" PointX="1.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.StatysZakaz" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.Tovar" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.User" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.Zakaz" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ObyvModel.TovarZakaz" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="ObyvModel.FK_Tovar_Kategor" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Tovar_NameTovar" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Tovar_Postavchik" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Tovar_Proizvoditel" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Zakaz_PunctVidachi" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Zakaz_StatysZakaz" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_TovarZakaz_Tovar" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_Zakaz_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ObyvModel.FK_TovarZakaz_Zakaz" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

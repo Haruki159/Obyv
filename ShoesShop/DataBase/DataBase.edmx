@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ObyvModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategor">
+          <Key>
+            <PropertyRef Name="IDKategorTovar" />
+          </Key>
+          <Property Name="IDKategorTovar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameKategor" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NameTovar">
+          <Key>
+            <PropertyRef Name="IDNameTovar" />
+          </Key>
+          <Property Name="IDNameTovar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NaimenovanieTovara" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Postavchik">
+          <Key>
+            <PropertyRef Name="IDPostavchik" />
+          </Key>
+          <Property Name="IDPostavchik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostavchikName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Proizvoditel">
+          <Key>
+            <PropertyRef Name="IDProizvoditel" />
+          </Key>
+          <Property Name="IDProizvoditel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameProizvoditel" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PunctVidachi">
+          <Key>
+            <PropertyRef Name="IDPunctVidachi" />
+          </Key>
+          <Property Name="IDPunctVidachi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Indeks" Type="int" />
+          <Property Name="Adres" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleSotrudnika" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StatysZakaz">
+          <Key>
+            <PropertyRef Name="IDStatysZakaza" />
+          </Key>
+          <Property Name="IDStatysZakaza" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatysZakaza" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tovar">
+          <Key>
+            <PropertyRef Name="IDTovar" />
+          </Key>
+          <Property Name="IDTovar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Articul" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="int" />
+          <Property Name="EdinichaIzmerenia" Type="nvarchar" MaxLength="50" />
+          <Property Name="Chena" Type="int" />
+          <Property Name="Postavchik" Type="int" />
+          <Property Name="Proizvoditel" Type="int" />
+          <Property Name="KategoriaTovar" Type="int" />
+          <Property Name="DeistvuichaiaSkidka" Type="int" />
+          <Property Name="KolVoNaSklade" Type="int" />
+          <Property Name="OpisanieTovara" Type="nvarchar(max)" />
+          <Property Name="Foto" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Obyv.dbo.TovarZakaz" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="TovarZakaz">
+          <Key>
+            <PropertyRef Name="IDTovarZakaz" />
+          </Key>
+          <Property Name="IDTovarZakaz" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomerZakaza" Type="int" />
+          <Property Name="Articul" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kolichestvo" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="int" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Otchestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parol" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="NomerZakaza" />
+          </Key>
+          <Property Name="NomerZakaza" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataZakaza" Type="date" />
+          <Property Name="DataDostavki" Type="date" />
+          <Property Name="AdresPunktaVidachi" Type="int" />
+          <Property Name="IDUser" Type="int" />
+          <Property Name="KodDlaPoluchenia" Type="int" />
+          <Property Name="StatusZakaza" Type="int" />
+        </EntityType>
+        <Association Name="FK_Tovar_Kategor">
+          <End Role="Kategor" Type="Self.Kategor" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategor">
+              <PropertyRef Name="IDKategorTovar" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="KategoriaTovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_NameTovar">
+          <End Role="NameTovar" Type="Self.NameTovar" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameTovar">
+              <PropertyRef Name="IDNameTovar" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Postavchik">
+          <End Role="Postavchik" Type="Self.Postavchik" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postavchik">
+              <PropertyRef Name="IDPostavchik" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Postavchik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Proizvoditel">
+          <End Role="Proizvoditel" Type="Self.Proizvoditel" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvoditel">
+              <PropertyRef Name="IDProizvoditel" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Proizvoditel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TovarZakaz_Tovar">
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="1" />
+          <End Role="TovarZakaz" Type="Self.TovarZakaz" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tovar">
+              <PropertyRef Name="IDTovar" />
+            </Principal>
+            <Dependent Role="TovarZakaz">
+              <PropertyRef Name="IDTovarZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TovarZakaz_Zakaz">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="0..1" />
+          <End Role="TovarZakaz" Type="Self.TovarZakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="NomerZakaza" />
+            </Principal>
+            <Dependent Role="TovarZakaz">
+              <PropertyRef Name="NomerZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_PunctVidachi">
+          <End Role="PunctVidachi" Type="Self.PunctVidachi" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PunctVidachi">
+              <PropertyRef Name="IDPunctVidachi" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="AdresPunktaVidachi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_StatysZakaz">
+          <End Role="StatysZakaz" Type="Self.StatysZakaz" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatysZakaz">
+              <PropertyRef Name="IDStatysZakaza" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="StatusZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ObyvModelContainer">
+          <EntitySet Name="Kategor" EntityType="Self.Kategor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NameTovar" EntityType="Self.NameTovar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postavchik" EntityType="Self.Postavchik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvoditel" EntityType="Self.Proizvoditel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PunctVidachi" EntityType="Self.PunctVidachi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatysZakaz" EntityType="Self.StatysZakaz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tovar" EntityType="Self.Tovar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakaz" EntityType="Self.Zakaz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TovarZakaz" EntityType="Self.TovarZakaz" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TovarZakaz].[IDTovarZakaz] AS [IDTovarZakaz], 
+    [TovarZakaz].[NomerZakaza] AS [NomerZakaza], 
+    [TovarZakaz].[Articul] AS [Articul], 
+    [TovarZakaz].[Kolichestvo] AS [Kolichestvo]
+    FROM [dbo].[TovarZakaz] AS [TovarZakaz]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Tovar_Kategor" Association="Self.FK_Tovar_Kategor">
+            <End Role="Kategor" EntitySet="Kategor" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_NameTovar" Association="Self.FK_Tovar_NameTovar">
+            <End Role="NameTovar" EntitySet="NameTovar" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Postavchik" Association="Self.FK_Tovar_Postavchik">
+            <End Role="Postavchik" EntitySet="Postavchik" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Proizvoditel" Association="Self.FK_Tovar_Proizvoditel">
+            <End Role="Proizvoditel" EntitySet="Proizvoditel" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TovarZakaz_Tovar" Association="Self.FK_TovarZakaz_Tovar">
+            <End Role="Tovar" EntitySet="Tovar" />
+            <End Role="TovarZakaz" EntitySet="TovarZakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TovarZakaz_Zakaz" Association="Self.FK_TovarZakaz_Zakaz">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="TovarZakaz" EntitySet="TovarZakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_PunctVidachi" Association="Self.FK_Zakaz_PunctVidachi">
+            <End Role="PunctVidachi" EntitySet="PunctVidachi" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_StatysZakaz" Association="Self.FK_Zakaz_StatysZakaz">
+            <End Role="StatysZakaz" EntitySet="StatysZakaz" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_User" Association="Self.FK_Zakaz_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ObyvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategor">
+          <Key>
+            <PropertyRef Name="IDKategorTovar" />
+          </Key>
+          <Property Name="IDKategorTovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameKategor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tovars" Relationship="Self.FK_Tovar_Kategor" FromRole="Kategor" ToRole="Tovar" />
+        </EntityType>
+        <EntityType Name="NameTovar">
+          <Key>
+            <PropertyRef Name="IDNameTovar" />
+          </Key>
+          <Property Name="IDNameTovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NaimenovanieTovara" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tovars" Relationship="Self.FK_Tovar_NameTovar" FromRole="NameTovar" ToRole="Tovar" />
+        </EntityType>
+        <EntityType Name="Postavchik">
+          <Key>
+            <PropertyRef Name="IDPostavchik" />
+          </Key>
+          <Property Name="IDPostavchik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostavchikName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tovars" Relationship="Self.FK_Tovar_Postavchik" FromRole="Postavchik" ToRole="Tovar" />
+        </EntityType>
+        <EntityType Name="Proizvoditel">
+          <Key>
+            <PropertyRef Name="IDProizvoditel" />
+          </Key>
+          <Property Name="IDProizvoditel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameProizvoditel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tovars" Relationship="Self.FK_Tovar_Proizvoditel" FromRole="Proizvoditel" ToRole="Tovar" />
+        </EntityType>
+        <EntityType Name="PunctVidachi">
+          <Key>
+            <PropertyRef Name="IDPunctVidachi" />
+          </Key>
+          <Property Name="IDPunctVidachi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Indeks" Type="Int32" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zakazs" Relationship="Self.FK_Zakaz_PunctVidachi" FromRole="PunctVidachi" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleSotrudnika" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="StatysZakaz">
+          <Key>
+            <PropertyRef Name="IDStatysZakaza" />
+          </Key>
+          <Property Name="IDStatysZakaza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatysZakaza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zakazs" Relationship="Self.FK_Zakaz_StatysZakaz" FromRole="StatysZakaz" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Tovar">
+          <Key>
+            <PropertyRef Name="IDTovar" />
+          </Key>
+          <Property Name="IDTovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Articul" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="Int32" />
+          <Property Name="EdinichaIzmerenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Chena" Type="Int32" />
+          <Property Name="Postavchik" Type="Int32" />
+          <Property Name="Proizvoditel" Type="Int32" />
+          <Property Name="KategoriaTovar" Type="Int32" />
+          <Property Name="DeistvuichaiaSkidka" Type="Int32" />
+          <Property Name="KolVoNaSklade" Type="Int32" />
+          <Property Name="OpisanieTovara" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kategor" Relationship="Self.FK_Tovar_Kategor" FromRole="Tovar" ToRole="Kategor" />
+          <NavigationProperty Name="NameTovar" Relationship="Self.FK_Tovar_NameTovar" FromRole="Tovar" ToRole="NameTovar" />
+          <NavigationProperty Name="Postavchik1" Relationship="Self.FK_Tovar_Postavchik" FromRole="Tovar" ToRole="Postavchik" />
+          <NavigationProperty Name="Proizvoditel1" Relationship="Self.FK_Tovar_Proizvoditel" FromRole="Tovar" ToRole="Proizvoditel" />
+          <NavigationProperty Name="TovarZakaz" Relationship="Self.FK_TovarZakaz_Tovar" FromRole="Tovar" ToRole="TovarZakaz" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Zakazs" Relationship="Self.FK_Zakaz_User" FromRole="User" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="NomerZakaza" />
+          </Key>
+          <Property Name="NomerZakaza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataZakaza" Type="DateTime" Precision="0" />
+          <Property Name="DataDostavki" Type="DateTime" Precision="0" />
+          <Property Name="AdresPunktaVidachi" Type="Int32" />
+          <Property Name="IDUser" Type="Int32" />
+          <Property Name="KodDlaPoluchenia" Type="Int32" />
+          <Property Name="StatusZakaza" Type="Int32" />
+          <NavigationProperty Name="PunctVidachi" Relationship="Self.FK_Zakaz_PunctVidachi" FromRole="Zakaz" ToRole="PunctVidachi" />
+          <NavigationProperty Name="StatysZakaz" Relationship="Self.FK_Zakaz_StatysZakaz" FromRole="Zakaz" ToRole="StatysZakaz" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Zakaz_User" FromRole="Zakaz" ToRole="User" />
+          <NavigationProperty Name="TovarZakazs" Relationship="Self.FK_TovarZakaz_Zakaz" FromRole="Zakaz" ToRole="TovarZakaz" />
+        </EntityType>
+        <EntityType Name="TovarZakaz">
+          <Key>
+            <PropertyRef Name="IDTovarZakaz" />
+          </Key>
+          <Property Name="IDTovarZakaz" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomerZakaza" Type="Int32" />
+          <Property Name="Articul" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kolichestvo" Type="Int32" />
+          <NavigationProperty Name="Tovar" Relationship="Self.FK_TovarZakaz_Tovar" FromRole="TovarZakaz" ToRole="Tovar" />
+          <NavigationProperty Name="Zakaz" Relationship="Self.FK_TovarZakaz_Zakaz" FromRole="TovarZakaz" ToRole="Zakaz" />
+        </EntityType>
+        <Association Name="FK_Tovar_Kategor">
+          <End Role="Kategor" Type="Self.Kategor" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategor">
+              <PropertyRef Name="IDKategorTovar" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="KategoriaTovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_NameTovar">
+          <End Role="NameTovar" Type="Self.NameTovar" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameTovar">
+              <PropertyRef Name="IDNameTovar" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Postavchik">
+          <End Role="Postavchik" Type="Self.Postavchik" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postavchik">
+              <PropertyRef Name="IDPostavchik" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Postavchik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Proizvoditel">
+          <End Role="Proizvoditel" Type="Self.Proizvoditel" Multiplicity="0..1" />
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvoditel">
+              <PropertyRef Name="IDProizvoditel" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Proizvoditel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_PunctVidachi">
+          <End Role="PunctVidachi" Type="Self.PunctVidachi" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PunctVidachi">
+              <PropertyRef Name="IDPunctVidachi" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="AdresPunktaVidachi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_StatysZakaz">
+          <End Role="StatysZakaz" Type="Self.StatysZakaz" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatysZakaz">
+              <PropertyRef Name="IDStatysZakaza" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="StatusZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TovarZakaz_Tovar">
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="1" />
+          <End Role="TovarZakaz" Type="Self.TovarZakaz" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tovar">
+              <PropertyRef Name="IDTovar" />
+            </Principal>
+            <Dependent Role="TovarZakaz">
+              <PropertyRef Name="IDTovarZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TovarZakaz_Zakaz">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="0..1" />
+          <End Role="TovarZakaz" Type="Self.TovarZakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="NomerZakaza" />
+            </Principal>
+            <Dependent Role="TovarZakaz">
+              <PropertyRef Name="NomerZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ObyvEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategors" EntityType="Self.Kategor" />
+          <EntitySet Name="NameTovars" EntityType="Self.NameTovar" />
+          <EntitySet Name="Postavchiks" EntityType="Self.Postavchik" />
+          <EntitySet Name="Proizvoditels" EntityType="Self.Proizvoditel" />
+          <EntitySet Name="PunctVidachis" EntityType="Self.PunctVidachi" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="StatysZakazs" EntityType="Self.StatysZakaz" />
+          <EntitySet Name="Tovars" EntityType="Self.Tovar" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Zakazs" EntityType="Self.Zakaz" />
+          <EntitySet Name="TovarZakazs" EntityType="Self.TovarZakaz" />
+          <AssociationSet Name="FK_Tovar_Kategor" Association="Self.FK_Tovar_Kategor">
+            <End Role="Kategor" EntitySet="Kategors" />
+            <End Role="Tovar" EntitySet="Tovars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_NameTovar" Association="Self.FK_Tovar_NameTovar">
+            <End Role="NameTovar" EntitySet="NameTovars" />
+            <End Role="Tovar" EntitySet="Tovars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Postavchik" Association="Self.FK_Tovar_Postavchik">
+            <End Role="Postavchik" EntitySet="Postavchiks" />
+            <End Role="Tovar" EntitySet="Tovars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Proizvoditel" Association="Self.FK_Tovar_Proizvoditel">
+            <End Role="Proizvoditel" EntitySet="Proizvoditels" />
+            <End Role="Tovar" EntitySet="Tovars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_PunctVidachi" Association="Self.FK_Zakaz_PunctVidachi">
+            <End Role="PunctVidachi" EntitySet="PunctVidachis" />
+            <End Role="Zakaz" EntitySet="Zakazs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_StatysZakaz" Association="Self.FK_Zakaz_StatysZakaz">
+            <End Role="StatysZakaz" EntitySet="StatysZakazs" />
+            <End Role="Zakaz" EntitySet="Zakazs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TovarZakaz_Tovar" Association="Self.FK_TovarZakaz_Tovar">
+            <End Role="Tovar" EntitySet="Tovars" />
+            <End Role="TovarZakaz" EntitySet="TovarZakazs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_User" Association="Self.FK_Zakaz_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Zakaz" EntitySet="Zakazs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TovarZakaz_Zakaz" Association="Self.FK_TovarZakaz_Zakaz">
+            <End Role="Zakaz" EntitySet="Zakazs" />
+            <End Role="TovarZakaz" EntitySet="TovarZakazs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ObyvModelContainer" CdmEntityContainer="ObyvEntities">
+          <EntitySetMapping Name="Kategors">
+            <EntityTypeMapping TypeName="ObyvModel.Kategor">
+              <MappingFragment StoreEntitySet="Kategor">
+                <ScalarProperty Name="IDKategorTovar" ColumnName="IDKategorTovar" />
+                <ScalarProperty Name="NameKategor" ColumnName="NameKategor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NameTovars">
+            <EntityTypeMapping TypeName="ObyvModel.NameTovar">
+              <MappingFragment StoreEntitySet="NameTovar">
+                <ScalarProperty Name="IDNameTovar" ColumnName="IDNameTovar" />
+                <ScalarProperty Name="NaimenovanieTovara" ColumnName="NaimenovanieTovara" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Postavchiks">
+            <EntityTypeMapping TypeName="ObyvModel.Postavchik">
+              <MappingFragment StoreEntitySet="Postavchik">
+                <ScalarProperty Name="IDPostavchik" ColumnName="IDPostavchik" />
+                <ScalarProperty Name="PostavchikName" ColumnName="PostavchikName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvoditels">
+            <EntityTypeMapping TypeName="ObyvModel.Proizvoditel">
+              <MappingFragment StoreEntitySet="Proizvoditel">
+                <ScalarProperty Name="IDProizvoditel" ColumnName="IDProizvoditel" />
+                <ScalarProperty Name="NameProizvoditel" ColumnName="NameProizvoditel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PunctVidachis">
+            <EntityTypeMapping TypeName="ObyvModel.PunctVidachi">
+              <MappingFragment StoreEntitySet="PunctVidachi">
+                <ScalarProperty Name="IDPunctVidachi" ColumnName="IDPunctVidachi" />
+                <ScalarProperty Name="Indeks" ColumnName="Indeks" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ObyvModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="RoleSotrudnika" ColumnName="RoleSotrudnika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatysZakazs">
+            <EntityTypeMapping TypeName="ObyvModel.StatysZakaz">
+              <MappingFragment StoreEntitySet="StatysZakaz">
+                <ScalarProperty Name="IDStatysZakaza" ColumnName="IDStatysZakaza" />
+                <ScalarProperty Name="NameStatysZakaza" ColumnName="NameStatysZakaza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tovars">
+            <EntityTypeMapping TypeName="ObyvModel.Tovar">
+              <MappingFragment StoreEntitySet="Tovar">
+                <ScalarProperty Name="IDTovar" ColumnName="IDTovar" />
+                <ScalarProperty Name="Articul" ColumnName="Articul" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EdinichaIzmerenia" ColumnName="EdinichaIzmerenia" />
+                <ScalarProperty Name="Chena" ColumnName="Chena" />
+                <ScalarProperty Name="Postavchik" ColumnName="Postavchik" />
+                <ScalarProperty Name="Proizvoditel" ColumnName="Proizvoditel" />
+                <ScalarProperty Name="KategoriaTovar" ColumnName="KategoriaTovar" />
+                <ScalarProperty Name="DeistvuichaiaSkidka" ColumnName="DeistvuichaiaSkidka" />
+                <ScalarProperty Name="KolVoNaSklade" ColumnName="KolVoNaSklade" />
+                <ScalarProperty Name="OpisanieTovara" ColumnName="OpisanieTovara" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ObyvModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Otchestvo" ColumnName="Otchestvo" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Parol" ColumnName="Parol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakazs">
+            <EntityTypeMapping TypeName="ObyvModel.Zakaz">
+              <MappingFragment StoreEntitySet="Zakaz">
+                <ScalarProperty Name="NomerZakaza" ColumnName="NomerZakaza" />
+                <ScalarProperty Name="DataZakaza" ColumnName="DataZakaza" />
+                <ScalarProperty Name="DataDostavki" ColumnName="DataDostavki" />
+                <ScalarProperty Name="AdresPunktaVidachi" ColumnName="AdresPunktaVidachi" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="KodDlaPoluchenia" ColumnName="KodDlaPoluchenia" />
+                <ScalarProperty Name="StatusZakaza" ColumnName="StatusZakaza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TovarZakazs">
+            <EntityTypeMapping TypeName="ObyvModel.TovarZakaz">
+              <MappingFragment StoreEntitySet="TovarZakaz">
+                <ScalarProperty Name="IDTovarZakaz" ColumnName="IDTovarZakaz" />
+                <ScalarProperty Name="NomerZakaza" ColumnName="NomerZakaza" />
+                <ScalarProperty Name="Articul" ColumnName="Articul" />
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
