@@ -37,6 +37,19 @@ WPF-приложение (C# / .NET) для автоматизации проц�
 
 ---
 
+## Код для фотографии
+```csharp
+public string Fotos
+{
+    get
+    {
+        if (!string.IsNullOrEmpty(Foto))
+            return $"/Resources/{this.Foto}";
+        return "/Resources/picture.png";
+    }
+}
+```
+
 ## 🛠️ Технологический стек
 
 * **Платформа:** .NET Framework
